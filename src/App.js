@@ -1,32 +1,52 @@
 import React, {useState} from 'react';
 import './App.css';
-import tabHeader from './components/tabHeader';
+import TabHeader from './components/tabHeader'
 
 function App() {
   const [tabs, setTabs] = useState([
     {
       selected: true,
-      title: "the best tab"
+      title: "the best tab",
+      content: "content of tab 0"
     },
     {
       selected: false,
-      title: "the okay tab"
+      title: "the okay tab",
+      content: "content of tab 1"
     },
     {
       selected: false,
-      title: "the worst tab"
+      title: "the worst tab",
+      content: "content of tab 2"
     },
 
   ])
+
+  const handleClick = (clickedIndex) =>{
+    tabs.map((tab,i) => {
+      let t = tab;
+      if (clickedIndex === i ){
+        t.selected= true;
+      }
+      else{
+        t.selected = false;
+      }
+      setTabs([...tabs.slice(0,i),
+      t,
+      ].concat(tabs.slice(i+1)))
+    })
+  }
   return (
     <div className="App">
-      {/* <tabHeader selected = {true} index={0} title= 'best tab'/> 
-      <tabHeader selected = {false} index={1} title= 'okay tab'/> 
-      <tabHeader selected = {false} index={2} title= 'worst tab'/>  */}
-      hello world
       {
-        tabs.map((tab, i)=> {
-          return <tabHeader selected={tab.selected} index={i} title={tab.title}/>
+        tabs.map((tab, i) => {
+          return <TabHeader selected={tab.selected} index={i} title={tab.title} handleClick={handleClick} />
+        })
+      }
+
+      {
+        tabs.map((tab, i)=>{
+          return tab.selected ? <p>{tab.content}</p>: ""
         })
       }
     </div>

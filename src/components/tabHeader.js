@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const tabHeader = (props) => {
+const TabHeader = (props) => {
     const seletedStyle ={
         backgroundColor: "green",
         width: '200px',
@@ -9,11 +9,13 @@ export const tabHeader = (props) => {
     const notSelectedStyle ={
         backgroundColor: "grey",
         width: '200px',
+        display: 'inline-block'
     }
     return (
-        <div style={props.selected ? seletedStyle : notSelectedStyle }>
+        <div style={props.selected ? seletedStyle : notSelectedStyle } onClick={()=>props.handleClick(props.index)}>
             Tab # {props.index}: {props.title}
         </div>
     )
 }
 
+export default TabHeader
